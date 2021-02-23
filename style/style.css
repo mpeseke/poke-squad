@@ -1,0 +1,38 @@
+@font-face {
+    font-family: pokeFont;
+    src: url("/style/PKMN\ RBYGSC.ttf") format("truetype");
+}
+
+html {
+    font-family: pokeFont, Arial, Helvetica, sans-serif;
+}
+
+.builder-container {
+    display: flex;
+}
+
+.selector-container {
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 0.25em;
+    max-width: 250px;
+    padding: 0.25em;
+}
+
+.heading {
+    font-size: medium;
+    text-align: center;
+}
+
+.team-container { 
+    display: grid;
+    grid-template-columns: 250px 250px 250px;
+    grid-template-rows: 150px 150px;
+}
+
+.team-slot {
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 0.25em;
+}
+
