@@ -125,8 +125,12 @@ function pushToPage(pokemonObject) {
 const select = document.querySelector('#slotSelect');
 select.addEventListener('change', function() {
     let slotNo = select.value;
+});
+
+const teamSlots = document.querySelectorAll(".team-container div");
+for(let i = 0; i < teamSlots.length; i++) {
     
-})
+}
 
 const req = new Request('https://pokeapi.co/api/v2/pokemon/venusaur');
 
