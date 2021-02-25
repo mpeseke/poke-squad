@@ -47,14 +47,20 @@ class Pokemon {
     }
 
     set level(value) {
-        if(value < 5 || value > 99) {
-            console.log("Pokémon level must be between 5 and 99");
+        if(value < 1 || value > 99) {
+            console.log("Pokémon level must be between 1 and 99");
             return;
         }
         this._level = value;
     }
 
-   
+    get sprite() {
+        return this._sprite;
+    }
+
+    set sprite(value) {
+        return this._sprite = value;
+    }
 
     get moveList() {
         return this._moveList;
@@ -72,28 +78,31 @@ class Pokemon {
         this._regionKey = value;
     }
     
-    
-    // getRegionalMoveSet(regionKey) {
-    //     const regionalMoveList = [];
-    //     for (const item in this.moveList) {
-    //         let move = this.moveList[item];
-    //         let versionDetails = move.version_group_details;
-    //         for(const version in versionDetails) {
-    //             if (versionDetails[version].version_group.name === regionKey && versionDetails[version].move_learn_method.name === "level-up") {
+}
 
-    //                 let moveSlot = {};
-    //                 moveSlot["name"] = capitalize(move.move.name);
-    //                 moveSlot["details"] = versionDetails[version];
+function getRegionalMoveSet(rawList) {
+    console.log("In getRegionalMoveSet()" + rawList);
+    const regionalMoveList = [];
+    for (const item in rawList) {
+        let move = rawList[item];
+        let versionDetails = move.version_group_details;
+        for(const version in versionDetails) {
+            if (versionDetails[version].version_group.name === this.regionKey && versionDetails[version].move_learn_method.name === "level-up") {
 
-    //                 regionalMoveList.push(moveSlot);
-    //             }
-    //         }
-    //     }
-    //     regionalMoveList.sort(function(a,b) {
-    //         return a.details.level_learned_at - b.details.level_learned_at;
-    //     });
-    //     return regionalMoveList;
-    // }
+                let moveSlot = {};
+                moveSlot["name"] = capitalize(move.move.name);
+                moveSlot["details"] = versionDetails[version];
+
+                regionalMoveList.push(moveSlot);
+            }
+        }
+    }
+    regionalMoveList.sort(function(a,b) {
+        return a.details.level_learned_at - b.details.level_learned_at;
+    });
+
+    console.log(regionalMoveList);
+    return regionalMoveList;
 }
 
 
@@ -103,32 +112,35 @@ function capitalize(s) {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-
 function getNextFiveMovesByLevel(monsterRegionalMoveSet) {
     console.log(monsterRegionalMoveSet);
 
 }
 
 function pushToPage(pokemonObject) {
-    //pull out the variable you need
-    const spriteImg = document.createElement('img');
-    spriteImg.src = pokemonObject.sprite;
-    spriteImg.alt = "Sprite image of " + pokemonObject.name + ", from Pokémon FR/LG.";
+    console.log(pokemonObject);
+    const spriteCell = document.getElementById('poke-img');
+    const nameCell = document.getElementById('poke-name');
+    const moveList = document.getElementById('poke-moveList');
+    
+    spriteCell.src = pokemonObject.sprite;
+    spriteCell.alt = "Image of " + pokemonObject.name;
+    nameCell.innerText = pokemonObject.name;
 
-    //push to parent element
-    document.getElementById("poke-name").innerHTML = pokemonObject.monsterName;
-    document.querySelector('.picturebox').appendChild(spriteImg);
+    for(var i = 0; i < 4; i++) {
+        const moveCell = document.createElement('li');
+        moveCell.appendChild(document.createTextNode(pokemonObject.moveList[i].move.name.toUpperCase()));
+        moveList.appendChild(moveCell);
+    }
+
+
 
 
 }
 
-const select = document.querySelector('#slotSelect');
-select.addEventListener('change', function() {
-    let slotNo = select.value;
-});
+function searchMonster(inputString) {
 
-const teamSlots = document.querySelectorAll(".team-container div");
-for(let i = 0; i < teamSlots.length; i++) {
+  
     
 }
 
@@ -142,19 +154,19 @@ fetch(req).then(response => {
     }
 }).then(response => {
     let monster = new Pokemon(response.name, response.id, '50', response.sprites.front_default, response.moves, "red-blue");
-
-    console.log(monster);
-
-
-
     pushToPage(monster);
-
-
-
 
 }).catch(error => {
     console.error(error);
 });
+
+const select = document.querySelector('#slotSelect');
+select.addEventListener('change', function() {
+    document.getElementById(select.value).style.backgroundColor = "blue";
+
+});
+
+
 
 
 
