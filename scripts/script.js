@@ -1,9 +1,8 @@
 /* 
 
-x. Set up the request method for the app, and return a valid object
-x. Set up and HTML Skeleton
-x. Start routing some of the data we return from the API onto the screen
-
+X. need to shepherd pokemon data into a single cell (css)
+2. need to implement correct search functionality (invovle region methods)
+3. need to make the push function work for multiple cells(js) 
 
 Backlog: 
 HP/Status Display 
@@ -117,54 +116,65 @@ function getNextFiveMovesByLevel(monsterRegionalMoveSet) {
 
 }
 
-function pushToPage(pokemonObject) {
-    console.log(pokemonObject);
-    const spriteCell = document.getElementById('poke-img');
-    const nameCell = document.getElementById('poke-name');
-    const moveList = document.getElementById('poke-moveList');
-    
-    spriteCell.src = pokemonObject.sprite;
-    spriteCell.alt = "Image of " + pokemonObject.name;
-    nameCell.innerText = pokemonObject.name;
+function createCellSkeleton(cellNumber) {
+    const fillCell = document.getElementById('slot'+cellNumber);
+    const elements = ['figure', 'picture', 'img','figcaption', 'ul', 'li']
 
-    for(var i = 0; i < 4; i++) {
-        const moveCell = document.createElement('li');
-        moveCell.appendChild(document.createTextNode(pokemonObject.moveList[i].move.name.toUpperCase()));
-        moveList.appendChild(moveCell);
+    const childElement;
+
+    for (let element of elements) {
+        childElement = document.createElement(element);
+        
     }
 
+
+    const spriteFig = document.createElement('figure');
+    const spritePic = document.createElement('picture');
+    const spriteImg = document.createElement('img');
+    const spriteCap = document.createElement('figcaption');
+    const moveList = document.createElement('ul');
+    spritePic.appendChild(spriteImg);
+    spriteFig.appendChild(spritePic);
+    spriteFig.appendChild(spriteCap);
+    fillCell.appendChild(spriteFig);
+    fillCell.appendChild(moveList);
+
+    console.log(fillCell);
+}
+
+function pushToCell(pokemonObject, cellNumber) {
+    console.log(pokemonObject, cellNumber);
+    createCellSkeleton(cellNumber);
+
+    
 
 
 
 }
 
-function searchMonster(inputString) {
+function searchMonster() {
+    const grabName = document.getElementById('nameInput').value;
+    const grabRegion = document.getElementById('regionInput').value;
+    const grabLevel = document.getElementById('levelInput').value;
 
-  
+    const req = new Request('https://pokeapi.co/api/v2/pokemon/' + grabName);
+
+    fetch(req).then(response => {
+        if(response.status === 200) {
+            return response.json();
+        } else {
+            throw new Error('Check your API, bozo!');
+        }
+    }).then(response => {
+        let monster = new Pokemon(response.name, response.id, grabLevel, response.sprites.front_default, response.moves, grabRegion);
+        let slotNumber = document.getElementById('slotSelect').value;
+        pushToCell(monster, slotNumber);
+    
+    }).catch(error => {
+        console.error(error);
+    });
     
 }
-
-const req = new Request('https://pokeapi.co/api/v2/pokemon/venusaur');
-
-fetch(req).then(response => {
-    if(response.status === 200) {
-        return response.json();
-    } else {
-        throw new Error('Check your API, bozo!');
-    }
-}).then(response => {
-    let monster = new Pokemon(response.name, response.id, '50', response.sprites.front_default, response.moves, "red-blue");
-    pushToPage(monster);
-
-}).catch(error => {
-    console.error(error);
-});
-
-const select = document.querySelector('#slotSelect');
-select.addEventListener('change', function() {
-    document.getElementById(select.value).style.backgroundColor = "blue";
-
-});
 
 
 

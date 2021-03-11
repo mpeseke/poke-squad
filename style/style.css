@@ -26,13 +26,28 @@ html {
 
 .team-container { 
     display: grid;
-    grid-template-columns: 250px 250px 250px;
+    grid-template-columns: 325px 325px 325px;
     grid-template-rows: 150px 150px;
 }
 
 .team-slot {
+    display: flex;
     border: 2px solid black;
     border-radius: 5px;
     margin: 0.25em;
+}
+
+
+.team-slot--imageGroup {
+    margin: 0;
+    margin-left: 1em;    
+}
+
+.team-slot--moveList {
+    list-style: none;
+    margin: 0;
+    margin-top: 1em;
+    line-height: 1.5em;
+    font-size: 14px;
 }
 

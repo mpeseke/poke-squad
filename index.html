@@ -12,42 +12,42 @@
 
                 <h1 class="heading">Team Builder</h1>
 
-                <label for="slotSelect">Select a Slot: </label>
-                <select id="slotSelect" name="slotSelect">
-                    <option value="slot1">Slot 1</option>
-                    <option value="slot2">Slot 2</option>
-                    <option value="slot3">Slot 3</option>
-                    <option value="slot4">Slot 4</option>
-                    <option value="slot5">Slot 5</option>
-                    <option value="slot6">Slot 6</option>
-                </select> 
+                <form>
 
-                <label for="nameInput">Pokémon Name:</label>
-                <input type="text" id="nameInput" name="nameInput"/>
-                <label for="regionInput">Choose Series:</label>
-                <select id="regionInput" name="regionInput">
-                    <option value="red-blue">Red/Blue</option>
-                </select> 
-                <label for="levelInput">Pokémon Level:</label>
-                <input type="number" max="100" id="levelInput" name="levelInput" />
-            </div>
+                    <label for="slotSelect">Select a Slot: </label>
+                    <select id="slotSelect" name="slotSelect">
+                        <option value="1">Slot 1</option>
+                        <option value="2">Slot 2</option>
+                        <option value="3">Slot 3</option>
+                        <option value="4">Slot 4</option>
+                        <option value="5">Slot 5</option>
+                        <option value="6">Slot 6</option>
+                    </select> 
+    
+                    <label for="nameInput">Pokémon Name:</label>
+                    <input type="text" id="nameInput" name="nameInput"/>
+                    <label for="regionInput">Choose Series:</label>
+                    <select id="regionInput" name="regionInput">
+                        <option value="red-blue">Red/Blue</option>
+                    </select> 
+                    <label for="levelInput">Pokémon Level:</label>
+                    <input type="number" max="100" id="levelInput" name="levelInput" />
 
-            <div class="team-container"> 
-                <article class="team-slot" id="slot1">
-                    <picture>
-                        <img id="poke-img" />
-                    </picture>
-                    <h3 id="poke-name"></h3>
-                    <ul id="poke-moveList"> 
-                    </ul>
-                    
-                </article>
-                <div class="team-slot" id="slot2">2</div>
-                <div class="team-slot" id="slot3">3</div>
-                <div class="team-slot" id="slot4">4</div>
-                <div class="team-slot" id="slot5">5</div>
-                <div class="team-slot" id="slot6">6</div>
-            </div>
+                    <input type="button" onClick="searchMonster()" value="Search Dex">
+                    <input type="reset" value="Reset Search"
+                      
+                </form>
+
+        </div>
+
+
+        <div class="team-container"> 
+            <div class="team-slot" id="slot1"></div>
+            <div class="team-slot" id="slot2"></div>
+            <div class="team-slot" id="slot3"></div>
+            <div class="team-slot" id="slot4"></div>
+            <div class="team-slot" id="slot5"></div>
+            <div class="team-slot" id="slot6"></div>
         </div>
         <script src="scripts/script.js"></script>
     </body>
